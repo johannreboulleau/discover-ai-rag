@@ -13,6 +13,8 @@ Based on this documentation: https://www.stephane-robert.info/docs/developper/pr
     * [Build the vector index](#build-the-vector-index)
     * [Similarity](#similarity)
     * [Search](#search)
+  * [FAISS](#faiss)
+  * [Chroma](#chroma)
 <!-- TOC -->
 
 ## Collect and clean the content
@@ -109,3 +111,32 @@ Execute the script `search.py`. It vectorizes the question and searches the inde
 
 **Attention**: this implementation is not scalable, because we search vector by vector.
 We need to use index as FAISS, Qdrant, etc.
+
+## FAISS
+
+FAISS is a library for efficient similarity search and clustering of dense vectors in memory only.
+FAISS is a libray of META.
+
+```shell
+pip install faiss-cpu
+python search-with-faiss.py
+```
+
+## Chroma
+
+More complete than FAISS, Chroma is a embedded vector database that provides persistence, filter and metadata management.
+But, it is not distributed.
+
+## Qdrant
+
+Qdrant is a distributed vector database that provides persistence, filter and metadata management.
+It is developed in Rust.
+
+I don't POC this step, I favor to focus on pgvector.
+
+| Project stage                                  | Vector database  |
+|------------------------------------------------|------------------|
+| Prototype, in-memory corpus                    | FAISS            |
+| Development, metadata, persistence             | Chroma           |
+| Production, shared service, scaling            | Qdrant, pgvector |
+
