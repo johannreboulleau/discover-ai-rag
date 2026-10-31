@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: ragdemo
+  datasource:
+    url: jdbc:postgresql://localhost:5435/ragdb # pgvector container used by pg-vector.py
+    username: postgres
+    password: lab
+  sql:
+    init:
+      mode: always # runs schema.sql: exposes the documents table as the vector_store view
+  ai:
+    model:
+      chat: none # only embeddings are needed for search
+    ollama:
+      base-url: http://localhost:11434
+      embedding:
+        options:
+          model: nomic-embed-text # same model as the Python indexing
+    vectorstore:
+      pgvector:
+        index-type: HNSW
+        distance-type: COSINE_DISTANCE
+        dimensions: 768 # same as embedding dimension loading by Python script
+        max-document-batch-size: 10000 # Optional: Maximum number of documents per batch

@@ -44,9 +44,9 @@ def connexion() -> psycopg.Connection:
 
 def creer_table(conn: psycopg.Connection) -> None:
     """(Re)crée la table documents et son index HNSW."""
-    conn.execute("DROP TABLE IF EXISTS documents")
+    # conn.execute("DROP TABLE IF EXISTS documents")
     conn.execute(
-        f"CREATE TABLE documents ("
+        f"CREATE TABLE IF NOT EXISTS documents ("
         f"id serial PRIMARY KEY, titre text, auteur text, date text, "
         f"source text, titre_section text, texte text NOT NULL, "
         f"embedding vector({DIMENSION}))"
@@ -107,7 +107,7 @@ def main() -> None:
     with connexion() as conn:
         creer_table(conn)
         documents = charger_chunks(base / "corpus-chunks")
-        inserer(conn, documents)
+        # inserer(conn, documents)
         total = conn.execute("SELECT count(*) FROM documents").fetchone()[0]
         logger.info("Table documents remplie : %d chunks", total)
 

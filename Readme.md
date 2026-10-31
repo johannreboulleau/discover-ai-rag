@@ -150,12 +150,14 @@ python pg-vector.py
 
 **Attention: the `::vector` cast in the SQL query is mandatory.**
 
-
-
 | Project stage                                                 | Vector database |
 |---------------------------------------------------------------|-----------------|
 | Prototype, in-memory corpus                                   | FAISS           |
 | Development, metadata, persistence                            | Chroma          |
 | Production, shared service, scaling with high volume          | Qdrant          |
 | Production, shared service, scaling with existing PostgresSQL | pgvector        |
+
+## SpringBoot and pgvector
+
+See `ragdemo` project in `./ragdemo` folder, and read [Readme.md](ragdemo/Readme.md).
 
