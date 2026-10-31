@@ -17,6 +17,12 @@ Based on this documentation: https://www.stephane-robert.info/docs/developper/pr
   * [Chroma](#chroma)
   * [Qdrant](#qdrant)
   * [pgvector](#pgvector)
+  * [SpringBoot and pgvector](#springboot-and-pgvector)
+  * [Best practices in production](#best-practices-in-production)
+    * [Security](#security)
+    * [Observability](#observability)
+    * [Evaluation](#evaluation)
+  * [Recall and exactitute TODO](#recall-and-exactitute-todo)
 <!-- TOC -->
 
 ## Collect and clean the content
@@ -160,4 +166,29 @@ python pg-vector.py
 ## SpringBoot and pgvector
 
 See `ragdemo` project in `./ragdemo` folder, and read [Readme.md](ragdemo/Readme.md).
+
+## Best practices in production
+
+### Security
+
+Never send sensitive data to the model. Filter with metadata when we request the RAG.
+With prompt injection, we can send a malicious prompt to the model, and retrieve the sensitive data.
+
+### Observability
+
+Log each request with:
+* user text
+* found sources
+* latency
+* response
+
+This allows to analyse the real question in production and adapt the RAG chunk or source (embedding).
+
+### Evaluation
+
+Do multiple data tests to measure the quality of found sources at each modification of the RAG. 
+The data tests are a list of static questions, and we compare the results (sources).
+
+## Recall and exactitute TODO
+
 
