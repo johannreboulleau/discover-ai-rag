@@ -5,6 +5,7 @@ Based on this documentation: https://www.stephane-robert.info/docs/developper/pr
 <!-- TOC -->
 * [RAG (Retrieval-Augmented Generation)](#rag-retrieval-augmented-generation)
   * [Collect and clean the content](#collect-and-clean-the-content)
+  * [Clean the text](#clean-the-text)
 <!-- TOC -->
 
 ## Collect and clean the content
@@ -26,3 +27,11 @@ python extract-html-content-for-rag.py
 ```
 
 Corpus is created in `corpus/doc_000.json`
+
+## Clean the text
+
+Clean invisible characters, repeated spaces, residual HTML, and inconsistent Unicode encoding.
+
+Create script to clean the text: `python clean-text-for-rag.py`
+
+**We use a custom script in this project, but for true project, use a professional tool like spaCy or NLTK**
