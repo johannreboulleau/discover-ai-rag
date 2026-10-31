@@ -15,6 +15,8 @@ Based on this documentation: https://www.stephane-robert.info/docs/developper/pr
     * [Search](#search)
   * [FAISS](#faiss)
   * [Chroma](#chroma)
+  * [Qdrant](#qdrant)
+  * [pgvector](#pgvector)
 <!-- TOC -->
 
 ## Collect and clean the content
@@ -134,9 +136,26 @@ It is developed in Rust.
 
 I don't POC this step, I favor to focus on pgvector.
 
-| Project stage                                  | Vector database  |
-|------------------------------------------------|------------------|
-| Prototype, in-memory corpus                    | FAISS            |
-| Development, metadata, persistence             | Chroma           |
-| Production, shared service, scaling            | Qdrant, pgvector |
+## pgvector
+
+Run Docker
+```shell
+docker run -d -e POSTGRES_PASSWORD=lab -e POSTGRES_DB=ragdb -p 5435:5432 pgvector/pgvector:pg17
+```
+
+```shell
+python -m pip install psycopg
+python pg-vector.py
+```
+
+**Attention: the `::vector` cast in the SQL query is mandatory.**
+
+
+
+| Project stage                                                 | Vector database |
+|---------------------------------------------------------------|-----------------|
+| Prototype, in-memory corpus                                   | FAISS           |
+| Development, metadata, persistence                            | Chroma          |
+| Production, shared service, scaling with high volume          | Qdrant          |
+| Production, shared service, scaling with existing PostgresSQL | pgvector        |
 
