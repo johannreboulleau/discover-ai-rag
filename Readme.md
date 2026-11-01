@@ -21,8 +21,10 @@ Based on this documentation: https://www.stephane-robert.info/docs/developper/pr
   * [Best practices in production](#best-practices-in-production)
     * [Security](#security)
     * [Observability](#observability)
+      * [Recall and exactitude](#recall-and-exactitude)
     * [Evaluation](#evaluation)
-  * [Recall and exactitute TODO](#recall-and-exactitute-todo)
+  * [Troubleshooting](#troubleshooting)
+    * [Wrong response](#wrong-response)
 <!-- TOC -->
 
 ## Collect and clean the content
@@ -184,11 +186,26 @@ Log each request with:
 
 This allows to analyse the real question in production and adapt the RAG chunk or source (embedding).
 
+#### Recall and exactitude
+
+By monitoring the found sources, we can measure the recall of retrieval. 
+With a lower recall, we can adapt the RAG chunk or source (embedding).
+With a higher recall, we can adapt the RAG prompt if the response is not exact.
+
 ### Evaluation
 
 Do multiple data tests to measure the quality of found sources at each modification of the RAG. 
 The data tests are a list of static questions, and we compare the results (sources).
 
-## Recall and exactitute TODO
+## Troubleshooting
 
+### Wrong response
 
+Multiple technique is possible:
+* hybrid search: combine semantic search with keyword search
+  * then merge the results with Reciprocal Rank Fusion (RRF)
+* Re-ranking: in second step, we re-rank the results with a different model
+  * the first search (bi-encoder) returns some results like 20 best results
+  * a cross-encoder model is used to re-rank the results by pair (question + result)
+  * **pay attention to the latency**
+* Agentic RAG: an AI agent can iterate over the results and ask the user for more information
